@@ -16,7 +16,7 @@ abstract:
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
-date: 2020-02-21
+date: 2019-11-01
 # date_end: 2020-02-21
 all_day: true
 
@@ -24,7 +24,7 @@ all_day: true
 publishDate: 2020-08-02T20:55:45+03:00
 
 authors: ["kirill-vasin"]
-tags: ["DVC", "Kedro", "MLFlow", "Catalyst"]
+tags: ["DVC", "Optuna", "Cookiecutter"]
 
 # Is this a featured talk? (true/false)
 featured: true

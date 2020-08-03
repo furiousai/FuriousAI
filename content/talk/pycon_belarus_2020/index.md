@@ -24,7 +24,7 @@ all_day: true
 publishDate: 2020-08-02T20:55:45+03:00
 
 authors: ["kirill-vasin"]
-tags: ["DVC", "Kedro", "MLFlow"]
+tags: ["DVC", "Kedro", "MLFlow", "Catalyst", "Optuna", "Hyperopt"]
 
 # Is this a featured talk? (true/false)
 featured: true

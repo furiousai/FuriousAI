@@ -7,7 +7,7 @@ weight = 1  # Order that this section will appear.
 
 # Slide interval.
 # Use `false` to disable animation or enter a time in ms, e.g. `5000` (5s).
-interval = 3000
+interval = 4000
 
 # Slide height (optional).
 # E.g. `500px` for 500 pixels or `calc(100vh - 70px)` for full screen.
@@ -36,7 +36,7 @@ height = ""
 
 [[item]]
   title = "Welcome to FuriousAI"
-  content = "Blog about developing of ML-based Products"
+  content = "Blog about managing ML-based Products"
   align = "center"
 
   overlay_color = "#333"  # An HTML color value.
