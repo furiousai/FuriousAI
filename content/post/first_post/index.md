@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "Posting Plans"
+title: "My First and Only (at least for now) Post"
 subtitle: ""
-summary: ""
+summary: "Welcome to my blog!"
 authors: ["kirill-vasin"]
 tags: []
 categories: []
-date: 2020-08-02T20:29:19+03:00
-lastmod: 2020-08-02T20:29:19+03:00
+date: 2020-10-25T20:29:19+03:00
+lastmod: 2020-10-25T20:29:19+03:00
 featured: true
 draft: false
 
@@ -27,11 +27,19 @@ image:
 #   Otherwise, set `projects = []`.
 projects: []
 ---
-Hello there!
-
-Here you may observe plans for my next several posts:
+Welcome to my blog!
+Here you may observe some ideas I have for my next several posts in order to grasp what kind of material you may find here in the future:
 * How to use Catboost models in Clickhouse painlessly
 * How to use DVC like a pro
 * Tips on setting Gitlab CI for your next Machine Learning Project
-* Several article summaries (starting with "Machine Learning:The High-Interest Credit Card of Technical Debt")
+* Several article summaries (which I save in my bottomless bookmarks)
 * Tips on Catboost tuning
+
+Also, right now I'm working on a pretty awesome Open Source Project, which (I hope) will be released in Q2-Q3 2021.
+
+Hopefully, I will turn at least some of these plans into reality :)
+
+For now, I'd like to invite you to read a little more [about me]({{< ref "../../authors/kirill-vasin" >}}) or just simply enjoy this adorable picture of a puppy:
+{{< figure src="good_boy.jpg">}}
+
+Thank you for coming by! See you later)
