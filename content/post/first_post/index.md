@@ -39,7 +39,7 @@ Also, right now I'm working on a pretty awesome Open Source Project, which (I ho
 
 Hopefully, I will turn at least some of these plans into reality :)
 
-For now, I'd like to invite you to read a little more [about me]({{< ref "../../authors/kirill-vasin" >}}) or just simply enjoy this adorable picture of a puppy:
+For now, I'd like to invite you to read a little more [about me]({{< ref "../../authors/kirill-vasin" >}}) and enjoy this adorable picture of a puppy:
 {{< figure src="good_boy.jpg">}}
 
 Thank you for coming by! See you later)
