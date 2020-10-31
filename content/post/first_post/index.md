@@ -1,14 +1,14 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "My First and Only (at least for now) Post"
+title: "Welcome to my blog!"
 subtitle: ""
-summary: "Welcome to my blog!"
+summary: "My plans for future, about me section and an adorable puppy"
 authors: ["kirill-vasin"]
 tags: []
 categories: []
-date: 2020-10-25T20:29:19+03:00
-lastmod: 2020-10-25T20:29:19+03:00
+date: 2020-10-25
+lastmod: 2020-10-25
 featured: true
 draft: false
 

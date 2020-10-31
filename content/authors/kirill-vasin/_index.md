@@ -18,7 +18,7 @@ organizations:
   url: "https://www.semrush.com/"
 
 # Short bio (displayed in user profile at end of posts)
-bio: I enjoy building ML-based products
+bio: Building real-life applications with machine learning
 
 interests:
 - Python programming
