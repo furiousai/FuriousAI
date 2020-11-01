@@ -39,14 +39,21 @@ In addition, I should notice that most probably, you will not encounter the same
 One day my colleagues and I decided it would be a brilliant idea to add MLflow to our ML Pipeline. We prepared a PostgreSQL database, installed MLflow and started logging results of our experiments with a handy `log_params` and `log_metrics` functions. 
 ```python
 from time import time
+
 import mlflow
 
 mlflow.set_tracking_uri(DATABASE_URI)
 experiment_name = "testing_mlflow"
 run_name = "initial_run"
 mlflow.set_experiment(experiment_name)
-metrics = {f"metric_{i}": 1 / (i + 1) for i in range(12)}
-params = {f"param_{i}": f"param_{i}" for i in range(3)}
+metrics = {
+    f"metric_{i}": 1 / (i + 1)
+    for i in range(12)
+}
+params = {
+    f"param_{i}": f"param_{i}"
+    for i in range(3)
+}
 
 start = time()
 with mlflow.start_run(run_name=run_name):
@@ -57,18 +64,13 @@ print(f"Took {time()- start:.2f} seconds")
 After conducting several experiments I noticed something is terribly wrong. The code inside `with` block took outrageous **53 seconds** to execute! So, I launched my investigation.
 
 ## Forgetful MLflow
-As a law-abiding citizen I began with mlflow official documentation. Nothing was really helpful there, yet I've learned that MLflow uses SQLAlchemy to manage database backend. Changing environmental variable `MLFLOW_SQLALCHEMYSTORE_POOL_SIZE` mentioned in the docs to 10 (from default 5) provided me with a following output:
+As a law-abiding citizen I began with mlflow official documentation. Nothing was really helpful there, yet I've learned that MLflow uses SQLAlchemy to manage database backend. Changing environmental variable `MLFLOW_SQLALCHEMYSTORE_POOL_SIZE` mentioned in the docs to 10 (from default 5) provided me with a following output repeated 5 times:
 ```
-2020/10/31 20:39:39 INFO mlflow.store.db.utils:
-Create SQLAlchemy engine with pool options {'pool_size': 10}
-2020/10/31 20:39:47 INFO mlflow.store.db.utils:
-Create SQLAlchemy engine with pool options {'pool_size': 10}
-2020/10/31 20:39:56 INFO mlflow.store.db.utils:
-Create SQLAlchemy engine with pool options {'pool_size': 10}
-2020/10/31 20:40:26 INFO mlflow.store.db.utils:
-Create SQLAlchemy engine with pool options {'pool_size': 10}
-2020/10/31 20:40:37 INFO mlflow.store.db.utils:
-Create SQLAlchemy engine with pool options {'pool_size': 10}
+<TIMESTAMP>
+INFO
+mlflow.store.db.utils:
+Create SQLAlchemy engine
+with pool options {'pool_size': 10}
 ```
 It seems that MLflow creates a new SQLAlchemy engine object each time you call MLflow in your code. Maybe that is why everything is so slow.
 {{< figure src="forgetful_mlflow.png">}}
@@ -79,12 +81,16 @@ A brief look in the source code led me to an object `mlflow.tracking.client impo
 from time import time
 
 from mlflow.entities import Metric, Param
-from mlflow.tracking.client import MlflowClient
+from mlflow.tracking.client import (
+    MlflowClient,
+)
 from mlflow.tracking.context import (
     registry as context_registry,
 )
 
-mlflow_client = MlflowClient(tracking_uri=DATABASE_URI)
+mlflow_client = MlflowClient(
+    tracking_uri=DATABASE_URI
+)
 experiment_name = "client_run"
 try:
     experiment_id = str(
@@ -105,13 +111,27 @@ run = mlflow_client.create_run(
     experiment_id=experiment_id, tags=tags
 )
 
-metrics = {f"metric_{i}": 1 / (i + 1) for i in range(12)}
-params = {f"param_{i}": f"param_{i}" for i in range(3)}
+metrics = {
+    f"metric_{i}": 1 / (i + 1)
+    for i in range(12)
+}
+params = {
+    f"param_{i}": f"param_{i}"
+    for i in range(3)
+}
 prep_metrics = [
-    Metric(k, v, timestamp=int(time() * 1000), step=0)
+    Metric(
+        k,
+        v,
+        timestamp=int(time() * 1000),
+        step=0,
+    )
     for k, v in metrics.items()
 ]
-prep_params = [Param(k, str(v)) for k, v in metrics.items()]
+prep_params = [
+    Param(k, str(v))
+    for k, v in metrics.items()
+]
 
 start = time()
 mlflow_client.log_batch(
@@ -121,13 +141,9 @@ mlflow_client.log_batch(
 )
 mlflow_client.set_terminated(run.info.run_id)
 print(f"Took {time()- start:.2f} seconds")
+
 ```
-Let's look into a console output:
-```
-2020/10/31 21:48:07 INFO mlflow.store.db.utils:
-Create SQLAlchemy engine with pool options {'pool_size': 3}
-```
-What a fantastic success! I managed to reduce a number of creations of `SQLAlchemy engine` objects just to 1! How much time this code took to execute?
+That produced only one warning about creation of SQLAlchemy engine in a console! What a fantastic success! How much time this code took to execute?
 
 **37 seconds**
 
@@ -146,24 +162,34 @@ filename:lineno(function): {method 'execute' of
 ```
 **164 calls to method 'execute'!!!** Wait, we are sending metrics and params to the database via method called `log_batch`. What the hell is going on? What is hidden behind `log_batch` method??? Let's take a look at [source code](https://github.com/mlflow/mlflow/blob/37496c3161a9f7561b4c7ca3054ae6bdb3154523/mlflow/store/tracking/sqlalchemy_store.py#L738) of a connector to SQLAlchemy from MLflow repository:
 ```python
-def log_batch(self, run_id, metrics, params, tags):
-  _validate_run_id(run_id)
-  _validate_batch_log_data(metrics, params, tags)
-  _validate_batch_log_limits(metrics, params, tags)
-  with self.ManagedSessionMaker() as session:
-      run = self._get_run(run_uuid=run_id, session=session)
-      self._check_run_is_active(run)
-  try:
-      for param in params:
-          self.log_param(run_id, param)
-      for metric in metrics:
-          self.log_metric(run_id, metric)
-      for tag in tags:
-          self.set_tag(run_id, tag)
-  except MlflowException as e:
-      raise e
-  except Exception as e:
-      raise MlflowException(e, INTERNAL_ERROR)
+def log_batch(
+    self, run_id, metrics, params, tags
+):
+    _validate_run_id(run_id)
+    _validate_batch_log_data(
+        metrics, params, tags
+    )
+    _validate_batch_log_limits(
+        metrics, params, tags
+    )
+    with self.ManagedSessionMaker() as session:
+        run = self._get_run(
+            run_uuid=run_id, session=session
+        )
+        self._check_run_is_active(run)
+    try:
+        for param in params:
+            self.log_param(run_id, param)
+        for metric in metrics:
+            self.log_metric(run_id, metric)
+        for tag in tags:
+            self.set_tag(run_id, tag)
+    except MlflowException as e:
+        raise e
+    except Exception as e:
+        raise MlflowException(
+            e, INTERNAL_ERROR
+        )
 ```
 Lol, nice for-loops out there!
 {{< figure src="mlflow_batch_request.jpg">}}
@@ -177,12 +203,16 @@ from mlflow.store.tracking.dbmodels.models import (
     SqlLatestMetric,
     SqlParam,
 )
-from mlflow.tracking.client import MlflowClient
+from mlflow.tracking.client import (
+    MlflowClient,
+)
 from mlflow.tracking.context import (
     registry as context_registry,
 )
 
-mlflow_client = MlflowClient(tracking_uri=DATABASE_URI)
+mlflow_client = MlflowClient(
+    tracking_uri=DATABASE_URI
+)
 experiment_name = "testing_mlflow"
 try:
     experiment_id = str(
@@ -203,8 +233,14 @@ run = mlflow_client.create_run(
     experiment_id=experiment_id, tags=tags
 )
 
-metrics = {f"metric_{i}": 1 / (i + 1) for i in range(12)}
-params = {f"param_{i}": f"param_{i}" for i in range(3)}
+metrics = {
+    f"metric_{i}": 1 / (i + 1)
+    for i in range(12)
+}
+params = {
+    f"param_{i}": f"param_{i}"
+    for i in range(3)
+}
 prep_metrics = [
     SqlLatestMetric(
         **{
@@ -232,7 +268,9 @@ prep_params = [
 start = time()
 store = mlflow_client._tracking_client.store
 with store.ManagedSessionMaker() as session:
-    session.add_all(prep_params + prep_metrics)
+    session.add_all(
+        prep_params + prep_metrics
+    )
 mlflow_client.set_terminated(run.info.run_id)
 print(f"Took {time()- start:.2f} seconds")
 ```
