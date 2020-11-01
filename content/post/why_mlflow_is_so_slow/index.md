@@ -59,11 +59,16 @@ After conducting several experiments I noticed something is terribly wrong. The 
 ## Forgetful MLflow
 As a law-abiding citizen I began with mlflow official documentation. Nothing was really helpful there, yet I've learned that MLflow uses SQLAlchemy to manage database backend. Changing environmental variable `MLFLOW_SQLALCHEMYSTORE_POOL_SIZE` mentioned in the docs to 10 (from default 5) provided me with a following output:
 ```
-2020/10/31 20:39:39 INFO mlflow.store.db.utils: Create SQLAlchemy engine with pool options {'pool_size': 10}
-2020/10/31 20:39:47 INFO mlflow.store.db.utils: Create SQLAlchemy engine with pool options {'pool_size': 10}
-2020/10/31 20:39:56 INFO mlflow.store.db.utils: Create SQLAlchemy engine with pool options {'pool_size': 10}
-2020/10/31 20:40:26 INFO mlflow.store.db.utils: Create SQLAlchemy engine with pool options {'pool_size': 10}
-2020/10/31 20:40:37 INFO mlflow.store.db.utils: Create SQLAlchemy engine with pool options {'pool_size': 10}
+2020/10/31 20:39:39 INFO mlflow.store.db.utils:
+Create SQLAlchemy engine with pool options {'pool_size': 10}
+2020/10/31 20:39:47 INFO mlflow.store.db.utils:
+Create SQLAlchemy engine with pool options {'pool_size': 10}
+2020/10/31 20:39:56 INFO mlflow.store.db.utils:
+Create SQLAlchemy engine with pool options {'pool_size': 10}
+2020/10/31 20:40:26 INFO mlflow.store.db.utils:
+Create SQLAlchemy engine with pool options {'pool_size': 10}
+2020/10/31 20:40:37 INFO mlflow.store.db.utils:
+Create SQLAlchemy engine with pool options {'pool_size': 10}
 ```
 It seems that MLflow creates a new SQLAlchemy engine object each time you call MLflow in your code. Maybe that is why everything is so slow.
 {{< figure src="forgetful_mlflow.png">}}
@@ -75,20 +80,30 @@ from time import time
 
 from mlflow.entities import Metric, Param
 from mlflow.tracking.client import MlflowClient
-from mlflow.tracking.context import registry as context_registry
+from mlflow.tracking.context import (
+    registry as context_registry,
+)
 
 mlflow_client = MlflowClient(tracking_uri=DATABASE_URI)
 experiment_name = "client_run"
 try:
     experiment_id = str(
-        mlflow_client.get_experiment_by_name(experiment_name).experiment_id
+        mlflow_client.get_experiment_by_name(
+            experiment_name
+        ).experiment_id
     )
 except AttributeError:
-    experiment_id = mlflow_client.create_experiment(experiment_name)
+    experiment_id = mlflow_client.create_experiment(
+        experiment_name
+    )
 
 run_name = "naive_approach"
-tags = context_registry.resolve_tags({"mlflow.runName": run_name})
-run = mlflow_client.create_run(experiment_id=experiment_id, tags=tags)
+tags = context_registry.resolve_tags(
+    {"mlflow.runName": run_name}
+)
+run = mlflow_client.create_run(
+    experiment_id=experiment_id, tags=tags
+)
 
 metrics = {f"metric_{i}": 1 / (i + 1) for i in range(12)}
 params = {f"param_{i}": f"param_{i}" for i in range(3)}
@@ -100,14 +115,17 @@ prep_params = [Param(k, str(v)) for k, v in metrics.items()]
 
 start = time()
 mlflow_client.log_batch(
-    run_id=run.info.run_id, metrics=prep_metrics, params=prep_params
+    run_id=run.info.run_id,
+    metrics=prep_metrics,
+    params=prep_params,
 )
 mlflow_client.set_terminated(run.info.run_id)
 print(f"Took {time()- start:.2f} seconds")
 ```
 Let's look into a console output:
 ```
-2020/10/31 21:48:07 INFO mlflow.store.db.utils: Create SQLAlchemy engine with pool options {'pool_size': 3}
+2020/10/31 21:48:07 INFO mlflow.store.db.utils:
+Create SQLAlchemy engine with pool options {'pool_size': 3}
 ```
 What a fantastic success! I managed to reduce a number of creations of `SQLAlchemy engine` objects just to 1! How much time this code took to execute?
 
@@ -118,9 +136,13 @@ Ok, maybe the success was not so fantastic. Seems I could use some profiling her
 ## An ugly truth behing log_batch
 With a help of cProfiler I managed to get a better understanding of what was going on.
 ```
-ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-  1    0.000    0.000   46.945   46.945 <ipython-input-35-9c62fa3dff50>:1(second_try)
-164   37.875    0.231   37.880    0.231 {method 'execute' of 'psycopg2.extensions.cursor' objects}
+ncalls: 164
+tottime: 37.875
+percall: 0.231
+cumtime: 37.880
+filename:lineno(function): {method 'execute' of
+    'psycopg2.extensions.cursor' objects}
+
 ```
 **164 calls to method 'execute'!!!** Wait, we are sending metrics and params to the database via method called `log_batch`. What the hell is going on? What is hidden behind `log_batch` method??? Let's take a look at [source code](https://github.com/mlflow/mlflow/blob/37496c3161a9f7561b4c7ca3054ae6bdb3154523/mlflow/store/tracking/sqlalchemy_store.py#L738) of a connector to SQLAlchemy from MLflow repository:
 ```python
@@ -151,22 +173,35 @@ To avoid calling `execute` too often, I used SQLAlchemy session directly.
 ```python
 from time import time
 
-from mlflow.store.tracking.dbmodels.models import SqlLatestMetric, SqlParam
+from mlflow.store.tracking.dbmodels.models import (
+    SqlLatestMetric,
+    SqlParam,
+)
 from mlflow.tracking.client import MlflowClient
-from mlflow.tracking.context import registry as context_registry
+from mlflow.tracking.context import (
+    registry as context_registry,
+)
 
 mlflow_client = MlflowClient(tracking_uri=DATABASE_URI)
 experiment_name = "testing_mlflow"
 try:
     experiment_id = str(
-        mlflow_client.get_experiment_by_name(experiment_name).experiment_id
+        mlflow_client.get_experiment_by_name(
+            experiment_name
+        ).experiment_id
     )
 except AttributeError:
-    experiment_id = mlflow_client.create_experiment(experiment_name)
+    experiment_id = mlflow_client.create_experiment(
+        experiment_name
+    )
 
 run_name = "final_solution"
-tags = context_registry.resolve_tags({"mlflow.runName": run_name})
-run = mlflow_client.create_run(experiment_id=experiment_id, tags=tags)
+tags = context_registry.resolve_tags(
+    {"mlflow.runName": run_name}
+)
+run = mlflow_client.create_run(
+    experiment_id=experiment_id, tags=tags
+)
 
 metrics = {f"metric_{i}": 1 / (i + 1) for i in range(12)}
 params = {f"param_{i}": f"param_{i}" for i in range(3)}
@@ -184,7 +219,13 @@ prep_metrics = [
     for key, value in metrics.items()
 ]
 prep_params = [
-    SqlParam(**{"key": key, "value": str(value), "run_uuid": run.info.run_id})
+    SqlParam(
+        **{
+            "key": key,
+            "value": str(value),
+            "run_uuid": run.info.run_id,
+        }
+    )
     for key, value in params.items()
 ]
 
