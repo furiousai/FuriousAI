@@ -3,7 +3,7 @@
 
 title: "Why MLflow is so slow"
 subtitle: ""
-summary: "and how to speed id up!"
+summary: "and how to speed it up!"
 authors: ["kirill-vasin"]
 tags: []
 categories: []
