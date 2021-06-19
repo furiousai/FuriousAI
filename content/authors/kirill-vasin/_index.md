@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: AI Machine Learning Project Manager
+role: DS Teamlead
 
 # Organizations/Affiliations
 organizations:
@@ -20,11 +20,11 @@ organizations:
 # Short bio (displayed in user profile at end of posts)
 bio: Building real-life applications with machine learning
 
-interests:
-- Python programming
-- Open Source projects
-- ML-based products
-- Building ML-processes
+# interests:
+# - Python programming
+# - Open Source projects
+# - ML-based products
+# - Building ML-processes
 
 # education:
 #   courses:
@@ -79,7 +79,7 @@ Right after receiving my master's degree I have spent about half a year working 
 So I jumped into studying the field of Reproducible ML and ML Pipelines and started applying ideas from there in my projects. By that time I joined SEMrush as a Data Scientist in a Core Department. Reproducible pipelines and applying of MLOps practices have proved to be very helpful in providing a business with effective ML-based solutions, so I gave talks on that topic on [PiterPy 2019](http://localhost:1234/talk/pycon_belarus_2020/) and [PyCon Belarus 2020](http://localhost:1234/talk/pycon_belarus_2020/) (talks were held in Russian language).
 
 Since August 2020 I am leading a Data Science Team inside a Core Department in SEMrush. My work includes but not limited to:
-* Managing a team of five people (DS and DE), supervising tasks, getting hands dirty myself every now and then
-* Organizing workflow (I found [LeanDS](https://leands.ai/) methodology very helpful!)
-* Creating an ML Strategy for products in the company by interviewing Product Owners and finding the most promising spots to apply Machine Learning
+* Managing a team of five people (DS and DE), supervising tasks, coordinating actions with other teams, getting into a code myself every now and then
+* Organizing workflow (I find [LeanDS](https://leands.ai/) methodology very helpful!)
+* Creating an ML Strategy for products in the company by interviewing Product Owners and finding the most promising spots to apply machine learning
 * Developing an internal ML-pipeline using Docker, DVC, Optuna and MLFlow which helps conducting reproducible experiments and makes management of ML Projects much easier
