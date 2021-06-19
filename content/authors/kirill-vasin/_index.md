@@ -82,4 +82,3 @@ Since August 2020 I am leading a Data Science Team inside a Core Department in S
 * Managing a team of five people (DS and DE), supervising tasks, coordinating actions with other teams, getting into a code myself every now and then
 * Organizing workflow (I find [LeanDS](https://leands.ai/) methodology very helpful!)
 * Creating an ML Strategy for products in the company by interviewing Product Owners and finding the most promising spots to apply machine learning
-* Developing an internal ML-pipeline using Docker, DVC, Optuna and MLFlow which helps conducting reproducible experiments and makes management of ML Projects much easier
