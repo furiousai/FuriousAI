@@ -91,7 +91,7 @@ from mlflow.tracking.context import (
 mlflow_client = MlflowClient(
     tracking_uri=DATABASE_URI
 )
-experiment_name = "client_run"
+experiment_name = "testing_mlflow"
 try:
     experiment_id = str(
         mlflow_client.get_experiment_by_name(

@@ -72,10 +72,14 @@ user_groups:
 - Author
 ---
 ### About me
-I have a bachelor's degree in Financial Management and a master's degree in Data Science.
+I have a master's degree in Data Science and a bachelor's degree in Financial Management.
 During my last year at University I had become so much fascinated with programming that I decided to start my own startup related to cryptocurrencies. I have spent about nine months building a multicurrency cryptowallet with Telegram messenger as an interface. Unfortunately, this venture was not successful since I had no actual idea how to deliver software products, and I was more interested in learning and building stuff than creating a viable business.
 
 Right after receiving my master's degree I have spent about half a year working as a freelance Python programmer and data scientist. During that period I realized that all the ML projects I participated in were lacking a lot of good practices which were coming as a normal state of things in software projects.
 So I jumped into studying the field of Reproducible ML and ML Pipelines and started applying ideas from there in my projects. By that time I joined SEMrush as a Data Scientist in a Core Department. Reproducible pipelines and applying of MLOps practices have proved to be very helpful in providing a business with effective ML-based solutions, so I gave talks on that topic on [PiterPy 2019](http://localhost:1234/talk/pycon_belarus_2020/) and [PyCon Belarus 2020](http://localhost:1234/talk/pycon_belarus_2020/) (talks were held in Russian language).
 
-Now I'm building a Data Science Team in SEMrush and diving into a field of Project Management.
+Since August 2020 I am leading a Data Science Team inside a Core Department in SEMrush. My work includes but not limited to:
+* Managing a team of five people (DS and DE), supervising tasks, getting hands dirty myself every now and then
+* Organizing workflow (I found [LeanDS](https://leands.ai/) methodology very helpful!)
+* Creating an ML Strategy for products in the company by interviewing Product Owners and finding the most promising spots to apply Machine Learning
+* Developing an internal ML-pipeline using Docker, DVC, Optuna and MLFlow which helps conducting reproducible experiments and makes management of ML Projects much easier
