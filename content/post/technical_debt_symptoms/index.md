@@ -64,7 +64,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 
 :white_check_mark: **Add a regularization** punishing for diverging  from  the  prior  model’s  predictions. *This increases chances for your model to achieve the same local minimum it has converged to on the previous run.*
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: Your model affects it's own input data
 #### Problems
@@ -76,7 +76,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 :white_check_mark: **Identify hidden input loops and get rid of them**. *In general, it requires an understanding of origins of the data you use*.
 
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: Your prediction service has undeclared consumers (aka visibility debt)
 #### Problems
@@ -90,7 +90,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 
 :white_check_mark:💡 ***Support an old version of your prediction service** for some time and make announcements long before any changes*.
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: Your model relies on unstable data source (e.g. another model)
 #### Problems
@@ -102,7 +102,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 
 :white_check_mark:💡***Use input features from the first model** to train your own model*.
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: You are using features with slim to none performance impact
 #### Problems
@@ -112,7 +112,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 
 :white_check_mark: **Develop cultural awareness** about the lasting benefit of underutilized dependency cleanup.
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: You have a lot of “glue code” because of a specific ML-package
 #### Problems
@@ -120,7 +120,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 #### Possible solutions
 :white_check_mark: **Re-implement algorithms** from a general-purpose package to satisfy your specific needs. *This may look costly, but sometimes it is the easiest solutions in terms of understanding, testing and maintaining your code. For example my team implemented a common interface for all data transformers and rewrites a code from general-purpose packages like sklearn to suit this interface*.
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: Data preparation stages turned into pipeline jungles
 #### Problems
@@ -130,7 +130,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 
 :white_check_mark:💡 ***Use data engineering/MLOps tools** which have become popular nowdays. My team is using Airflow and [DVC](https://dvc.org/) in almost every project which helps us easily manage our data pipelines.*
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: You are mixing dead experimental code with a working one
 #### Problems
@@ -138,7 +138,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 #### Possible solutions
 :white_check_mark: **Build a healthy ML system** which isolates experimental code well. *E.g., [DVC](https://dvc.org/) encourages a usage of separate branches for separate experiments. By doing so, you would nip this problem in the bud*.
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: Your configuration files are very complex
 #### Problems
@@ -148,7 +148,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 
 :white_check_mark: **Carefully review changes in configuration files**.
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: You have chosen a threshold for your model manually
 #### Problems
@@ -156,7 +156,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 #### Possible solutions
 :white_check_mark: Let your ML system to **learn a threshold on holdout data**.
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: Your model relies on non-causal correlations
 #### Problems
@@ -167,7 +167,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 :white_check_mark:💡***Check that introduced features affect the results in a way you can explain**, e.g. you may use a combination of domain knowledge and [Shapley Values](https://christophm.github.io/interpretable-ml-book/shapley.html) for that*.
 
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ### :question_mark: Your ML-system monitoring and testing require improvements
 #### Problems
@@ -179,7 +179,7 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 
 :white_check_mark:💡 ***Monitor other useful metrics**. Here are parameters my team usually monitors in every project: input data distribution, prediction distribution, overall metrics, metrics on some slices of data, feature importance, assertions for edge-cases (e.g. if all features are zero we expect prediction to be zero)*.
 
-[↩️ Return to list of sympoms](#symptoms-of-ml-project-technical-debt)
+[↩️ Return to the list of sympoms](#symptoms-of-ml-project-technical-debt)
 
 ## Conclusion
 I hope you have found this article helpful! Do not let technical debt to become unbearable and cut down an innovation rate of your ML-projects!
