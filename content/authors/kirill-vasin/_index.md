@@ -14,7 +14,7 @@ role: DS Teamlead
 
 # Organizations/Affiliations
 organizations:
-- name: SEMrush
+- name: Semrush
   url: "https://www.semrush.com/"
 
 # Short bio (displayed in user profile at end of posts)
@@ -24,8 +24,8 @@ interests:
 - ML-based products
 - Building ML-processes
 - Meeting new people
-- Swimming, windsurfing, diving
-- Yoga and meditation
+- Swimming, wakesurfing, windsurfing, diving
+- Running and yoga
 
 # education:
 #   courses:
@@ -72,9 +72,9 @@ email: ""
 user_groups:
 - Author
 ---
-### About me
+### Overview
 
-Since August 2020 I am leading a Data Science Team inside a Core Department in SEMrush. My work includes but not limited to:
+Since August 2020 I am leading a Data Science Team inside a Core Department in Semrush. My work includes but not limited to:
 * Managing a team of five people (DS and DE), supervising tasks, coordinating actions with other teams, getting into a code myself every now and then
 * Organizing workflow (I find [LeanDS](https://leands.ai/) methodology very helpful!)
 * Creating an ML Strategy for products in the company by interviewing Product Owners and finding the most promising spots to apply machine learning

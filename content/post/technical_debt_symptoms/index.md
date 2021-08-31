@@ -1,7 +1,7 @@
 ---
 # Documentation: https://sourcethemes.com/academic/docs/managing-content/
 
-title: "12 symptoms of ML-Project Technical Debt"
+title: "12 symptoms of a Hidden Technical Debt in your ML project"
 subtitle: ""
 summary: "How to identify a technical debt and how to pay it off early"
 authors: ["kirill-vasin"]
@@ -182,6 +182,6 @@ Technical debt is a metaphor that refers to an amount of work your team would ha
 [↩️ Return to the list of symptoms](#symptoms-of-ml-project-technical-debt)
 
 ## Conclusion
-I hope you have found this article helpful! Do not let technical debt to become unbearable and cut down an innovation rate of your ML-projects!
+I hope you have found this article helpful! Do not let technical debt become unbearable and cut down an innovation rate of your ML-projects!
 
 If notice an error or just in a mood to say hello, please contact me via [LinkedIn](https://www.linkedin.com/in/vasinkd/), [Telegram](https://t.me/vasinkd) or [email](mailto:vasin.kd@gmail.com). Every message counts, your feedback really motivates me for creation of a new content! Also, you are very welcome to subscribe to my Telegram channel: [@FuriousAI](https://t.me/FuriousAI).
