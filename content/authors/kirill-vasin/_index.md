@@ -24,7 +24,7 @@ interests:
 - ML-based products
 - Building ML-processes
 - Meeting new people
-- Swimming, wakesurfing, windsurfing, diving
+- Water sports
 - Running and yoga
 
 # education:
@@ -75,9 +75,9 @@ user_groups:
 ### Overview
 
 Since August 2020 I am leading a Data Science Team inside a Core Department in Semrush. My work includes but not limited to:
-* Managing a team of five people (DS and DE), supervising tasks, coordinating actions with other teams, getting into a code myself every now and then
-* Organizing workflow (I find [LeanDS](https://leands.ai/) methodology very helpful!)
-* Creating an ML Strategy for products in the company by interviewing Product Owners and finding the most promising spots to apply machine learning
+* Managing a team of five people (DS and DE), supervising tasks, coordinating actions with other teams, getting into a code myself on a regular basis
+* Organizing workflow using [LeanDS](https://leands.ai/) methodology
+* Creating an ML Strategy for products in the company
 
 ### Bio
 I have a master's degree in Data Science and a bachelor's degree in Financial Management.
