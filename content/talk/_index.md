@@ -1,5 +1,7 @@
 ---
-title: Recent & Upcoming Talks
+title: Talks
+aliases:
+  - /talks/
 
 # View.
 #   1 = List

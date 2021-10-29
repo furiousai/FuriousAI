@@ -1,5 +1,8 @@
 ---
 title: Posts
+aliases:
+  - /posts/
+
 
 # View.
 #   1 = List

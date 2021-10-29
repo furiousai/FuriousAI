@@ -5,22 +5,22 @@
 
 [[main]]
   name = "Home"
-  url = "#slider"
+  url = "/"
   weight = 10
 
 [[main]]
   name = "Posts"
-  url = "#posts"
+  url = "/post"
   weight = 20
 
 [[main]]
   name = "Talks"
-  url = "#talks"
+  url = "/talk"
   weight = 30
 
 [[main]]
   name = "Author"
-  url = "#author"
+  url = "/author/kirill-vasin"
   weight = 40
 
 #[[main]]
