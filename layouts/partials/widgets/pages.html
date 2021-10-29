@@ -71,7 +71,7 @@
 
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
-    <h1><a class="pagelink" href={{ $st.Params.link }}>{{ with $st.Params.title }}{{ . | markdownify | emojify }}{{ end }}</a></h1>
+    <h1>{{ with $st.Params.title }}{{ . | markdownify | emojify }}{{ end }}</h1>
     {{ with $st.Params.subtitle }}<p>{{ . | markdownify | emojify }}</p>{{ end }}
   </div>
   <div class="col-12 col-lg-8">
@@ -90,14 +90,12 @@
       {{ end }}
     {{end}}
 
-    {{ if gt $count $items_count }}
     <div class="see-all">
       <a href="{{ $archive_page.RelPermalink }}">
         {{ i18n $i18n | default "See all" }}
         <i class="fas fa-angle-right"></i>
       </a>
     </div>
-    {{ end }}
 
   </div>
 </div>
