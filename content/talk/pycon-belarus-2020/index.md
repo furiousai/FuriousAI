@@ -10,9 +10,11 @@ address:
   city:
   region:
   postcode:
-  country: 
+  country:
 summary: ""
 abstract:
+aliases:
+  - /talk/pycon_belarus_2020/
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
@@ -30,7 +32,7 @@ tags: ["DVC", "Kedro", "MLFlow", "Catalyst", "Optuna", "Hyperopt"]
 featured: true
 
 # Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
+# To use, add an image named `featured.jpg/png` to your page's folder.
 # Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, BottomRight.
 image:
   caption: ""

@@ -12,6 +12,8 @@ lastmod: 2020-10-31
 featured: true
 draft: false
 toc: true
+aliases:
+  - /post/why_mlflow_is_so_slow/
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -36,7 +38,7 @@ In this article I'm breaking some fail-safes set by developers of MLflow to achi
 In addition, I should notice that most probably, you will not encounter the same problem if you are using a file store backend. Hopefully, MLflow will fix this issue in a future releases. There is an [open issue](https://github.com/mlflow/mlflow/issues/3010) on Github you can follow and contribute to. Right now, in October 2020, I'm using a release `1.11.0`.
 
 ## MLflow or MLslow
-One day my colleagues and I decided it would be a brilliant idea to add MLflow to our ML Pipeline. We prepared a PostgreSQL database, installed MLflow and started logging results of our experiments with a handy `log_params` and `log_metrics` functions. 
+One day my colleagues and I decided it would be a brilliant idea to add MLflow to our ML Pipeline. We prepared a PostgreSQL database, installed MLflow and started logging results of our experiments with a handy `log_params` and `log_metrics` functions.
 ```python
 from time import time
 
@@ -195,7 +197,7 @@ Lol, nice for-loops out there!
 {{< figure src="mlflow_batch_request.jpg">}}
 
 ## Final solution
-To avoid calling `execute` too often, I used SQLAlchemy session directly. 
+To avoid calling `execute` too often, I used SQLAlchemy session directly.
 ```python
 from time import time
 

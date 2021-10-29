@@ -12,6 +12,9 @@ lastmod: 2021-07-10
 featured: true
 draft: false
 toc: true
+aliases:
+  - /post/technical_debt_symptoms/
+
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
